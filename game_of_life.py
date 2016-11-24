@@ -8,7 +8,11 @@ class GameOfLife(object):
         return self.alive_cells
 
     def get_alive_neighbours(self, cell):
-        return set()
+        alive_neighbours = set()
+        for neighbour in self.get_neighbours(cell):
+            if neighbour in self.alive_cells:
+                alive_neighbours.add(neighbour)
+        return alive_neighbours
 
     @staticmethod
     def get_neighbours(cell):

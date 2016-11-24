@@ -81,17 +81,15 @@ class TestGameOfLife(unittest.TestCase):
         self.assertEqual(expected_len, len(neighbours))
         self.assertEqual(expected_neighbours, neighbours)
 
-    def test_should_return_empty_set_of_alive_neighbours_of_cell(self):
+    def test_should_return_correct_set_of_alive_neighbours_of_cell(self):
         # GIVEN
-        seed = set((-1,-1))
+        seed = set([(-1,-1),(-1, 0)])
         game_of_life = GameOfLife(seed)
         cell = (0,0)
-        expected_len = 0
-        expected_neighbours = set()
+        expected_neighbours = set([(-1,-1),(-1, 0)])
         # WHEN
         alive_neighbours = game_of_life.get_alive_neighbours(cell) 
         # THEN
-        self.assertEqual(expected_len, len(alive_neighbours))
         self.assertEqual(expected_neighbours, alive_neighbours)
 
     def test_tick_with_one_cell_dies(self):
