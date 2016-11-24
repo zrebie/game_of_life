@@ -8,7 +8,7 @@ class GameOfLife(object):
         for cell in self.alive_cells:
             if len(self.get_alive_neighbours(cell)) in [2,3]:
                 next_generation.add(cell)
-        self.alive_cells = next_generation
+        self.alive_cells = next_generation.union(self.get_births())
         return self.alive_cells
 
     def get_births(self):
