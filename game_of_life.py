@@ -4,13 +4,24 @@ class GameOfLife(object):
         self.alive_cells = seed
 
     def tick(self):
-        self.alive_cells = set()
+        next_generation = set()
+        for cell in self.alive_cells:
+            if len(self.get_alive_neighbours(cell)) in [2,3]:
+                next_generation.add(cell)
+        self.alive_cells = next_generation
         return self.alive_cells
 
     def get_alive_neighbours(self, cell):
         alive_neighbours = set()
         for neighbour in self.get_neighbours(cell):
             if neighbour in self.alive_cells:
+                alive_neighbours.add(neighbour)
+        return alive_neighbours
+
+    def get_dead_neighbours(self, cell):
+        alive_neighbours = set()
+        for neighbour in self.get_neighbours(cell):
+            if neighbour not in self.alive_cells:
                 alive_neighbours.add(neighbour)
         return alive_neighbours
 

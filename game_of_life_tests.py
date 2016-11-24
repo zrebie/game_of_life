@@ -39,21 +39,36 @@ class TestGameOfLife(unittest.TestCase):
         next_generation = next(generator(seed))
         # THEN
         self.assertEqual(next_generation, expected)
-# 
-#     def test_tick_block_should_survive(self):
-#         """
-#         **
-#         **
-#         =>
-#         **
-#         **
-#         """
-#         # GIVEN
-#         seed = set([(0,0), (0,1),(1,0),(1,1)])
-#         expected = seed
-#         game_of_life = GameOfLife(seed)
-#         # WHEN & THEN
-#         self.assertEqual(game_of_life.tick(), expected)
+
+    def test_tick_with_one_cell_dies(self):
+        """
+        .*.
+        =>
+        ...
+        """
+        # GIVEN
+        seed = set([(0,0)])
+        expected_1 = set()
+        expected_2 = set()
+        game_of_life = GameOfLife(seed)
+        # WHEN & THEN
+        self.assertEqual(game_of_life.tick(), expected_1)
+        self.assertEqual(game_of_life.tick(), expected_2)
+
+    def test_tick_block_should_survive(self):
+        """
+        **
+        **
+        =>
+        **
+        **
+        """
+        # GIVEN
+        seed = set([(0,0), (0,1),(1,0),(1,1)])
+        expected = seed
+        game_of_life = GameOfLife(seed)
+        # WHEN & THEN
+        self.assertEqual(game_of_life.tick(), expected)
     
     def test_should_return_correct_neighbours(self):
         # GIVEN
@@ -92,16 +107,16 @@ class TestGameOfLife(unittest.TestCase):
         # THEN
         self.assertEqual(expected_neighbours, alive_neighbours)
 
-    def test_tick_with_one_cell_dies(self):
+    def test_should_return_correct_set_of_dead_neighbours_of_cell(self):
         # GIVEN
-        seed = set([(0,0)])
-        expected_1 = set()
-        expected_2 = set()
+        seed = set([(-1,-1),(-1, 0)])
         game_of_life = GameOfLife(seed)
-        # WHEN & THEN
-        self.assertEqual(game_of_life.tick(), expected_1)
-        self.assertEqual(game_of_life.tick(), expected_2)
-
+        cell = (0,0)
+        expected_dead_neighbours = set([(0,-1), (1, -1),(1,  0), (-1,1), (0, 1), (1,  1)])
+        # WHEN
+        dead_neighbours = game_of_life.get_dead_neighbours(cell) 
+        # THEN
+        self.assertEqual(expected_dead_neighbours, dead_neighbours)
 
 if __name__ == "__main__":
     unittest.main()
