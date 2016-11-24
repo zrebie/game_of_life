@@ -7,5 +7,6 @@ class GameOfLife(object):
         return self.alive_cells
 
 def generator(seed):
-    yield set([])
+    game_of_life = GameOfLife(seed)
+    yield game_of_life.tick()
 
