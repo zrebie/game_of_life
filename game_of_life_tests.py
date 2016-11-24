@@ -27,7 +27,7 @@ class TestGameOfLife(unittest.TestCase):
         seed = set([])
         expected = set([])
         # WHEN
-        next_generation = generator(seed)
+        next_generation = next(generator(seed))
         # THEN
         self.assertEqual(next_generation, expected)
 

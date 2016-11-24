@@ -4,5 +4,5 @@ class GameOfLife(object):
         self.alive_cells = seed
 
 def generator(seed):
-    return set([])
+    yield set([])
 
