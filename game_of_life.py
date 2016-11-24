@@ -7,6 +7,9 @@ class GameOfLife(object):
         self.alive_cells = set()
         return self.alive_cells
 
+    def get_alive_neighbours(self, cell):
+        return set()
+
     @staticmethod
     def get_neighbours(cell):
         neighbours = set()
