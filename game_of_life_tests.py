@@ -154,6 +154,26 @@ class TestGameOfLife(unittest.TestCase):
         # THEN
         self.assertEqual(expected_births, births)
 
+    def test_should_return_only_survivors(self):
+        """
+        .*
+        **
+
+        =>
+
+        **
+        **
+
+        """
+        # GIVEN
+        seed = set([(0, 0), (0, 1), (1, 1)])
+        game_of_life = GameOfLife(seed)
+        expected_survivors = set([(0, 0), (0, 1), (1, 1)])
+        # WHEN
+        survivors = game_of_life.get_survivors()
+        # THEN
+        self.assertEqual(expected_survivors, survivors)
+
     def test_should_tick_births_and_deaths_for_blinker(self):
         """
         ...
@@ -177,5 +197,6 @@ class TestGameOfLife(unittest.TestCase):
         self.assertEqual(expected_generation_1, game_of_life.tick())
         self.assertEqual(expected_generation_2, game_of_life.tick())
 
+    
 if __name__ == "__main__":
     unittest.main()

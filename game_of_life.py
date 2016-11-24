@@ -4,12 +4,14 @@ class GameOfLife(object):
         self.alive_cells = seed
 
     def tick(self):
-        next_generation = set()
-        for cell in self.alive_cells:
-            if len(self.get_alive_neighbours(cell)) in [2,3]:
-                next_generation.add(cell)
-        self.alive_cells = next_generation.union(self.get_births())
+        self.alive_cells = self.get_survivors().union(self.get_births())
         return self.alive_cells
+
+    def get_survivors(self):
+        return set([cell for cell in self.alive_cells if self.get_survivor_condition(cell)])
+
+    def get_survivor_condition(self, cell):
+        return len(self.get_alive_neighbours(cell)) in [2,3]
 
     def get_births(self):
         return set([cell for cell in self.get_birth_candidates() if len(self.get_alive_neighbours(cell))==3])
@@ -45,6 +47,10 @@ class GameOfLife(object):
             neighbours.add(neighbours_cell)
         return neighbours
 
+#     def __str__(self):
+#         for x in range(-10,10):
+#             for y in range(-10,10):
+#             print()
 def generator(seed):
     game_of_life = GameOfLife(seed)
     yield game_of_life.tick()
