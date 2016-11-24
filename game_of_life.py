@@ -11,6 +11,15 @@ class GameOfLife(object):
         self.alive_cells = next_generation
         return self.alive_cells
 
+    def get_births(self):
+        return set([cell for cell in self.get_birth_candidates() if len(self.get_alive_neighbours(cell))==3])
+
+    def get_birth_candidates(self):
+        birth_candidates = set()
+        for cell in self.alive_cells:
+            birth_candidates = birth_candidates.union(self.get_dead_neighbours(cell))
+        return birth_candidates
+    
     def get_alive_neighbours(self, cell):
         alive_neighbours = set()
         for neighbour in self.get_neighbours(cell):

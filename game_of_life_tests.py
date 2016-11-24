@@ -118,5 +118,41 @@ class TestGameOfLife(unittest.TestCase):
         # THEN
         self.assertEqual(expected_dead_neighbours, dead_neighbours)
 
+    def test_should_return_correct_set_of_birth_candidates(self):
+        """
+        ....
+        .**.
+        ....
+        """
+        # GIVEN
+        seed = set([(0,0),(0, 1)])
+        game_of_life = GameOfLife(seed)
+        expected_birth_candidates = set([(-1, 1), (-1,0), (-1, -1), (1,0), (0,-1), (1, 1), (1, -1), (1,2), (0, 2), (-1, 2)])
+        # WHEN
+        birth_candidates = game_of_life.get_birth_candidates() 
+        # THEN
+        self.assertEqual(expected_birth_candidates, birth_candidates)
+
+
+    def test_should_arise_from_dead_one_cell(self):
+        """
+        .*
+        **
+        
+        =>
+        
+        **
+        **
+        
+        """
+        # GIVEN
+        seed = set([(0,0),(0, 1), (1,1)])
+        game_of_life = GameOfLife(seed)
+        expected_births = set([(1,0)])
+        # WHEN
+        births = game_of_life.get_births() 
+        # THEN
+        self.assertEqual(expected_births, births)
+
 if __name__ == "__main__":
     unittest.main()
